@@ -1,115 +1,81 @@
 import React, { useEffect, useState } from "react";
-// import axios from "../../axios";
-import axios from "axios";
-import requests from "../../requests";
 import Fuse from "fuse.js";
 import "./Search.css";
+import { useSelector } from "react-redux";
+import { selectMovie } from "../../features/movieSlice";
+import SearchIcon from "@material-ui/icons/Search";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { useHistory } from "react-router-dom";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [netflixOriginals, setNetflixOriginals] = useState([]);
-  const [trending, setTrending] = useState([]);
-  const [topRated, setTopRated] = useState([]);
-  const [action, setAction] = useState([]);
-  const [romance, setRomance] = useState([]);
+  const state = useSelector(selectMovie);
+  const [searchResults, setSearchResults] = useState(state);
+  const history = useHistory();
 
   const base_url = "https://image.tmdb.org/t/p/original";
   const options = {
     includeScore: true,
-    keys: ["title"],
+    keys: ["title", "name"],
   };
+
   useEffect(() => {
-    async function fetchData() {
-      const netflixOriginals = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchNetflixOriginals}`
-      );
-      const trending = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchTrending}`
-      );
-      const topRated = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchTopRated}`
-      );
-      const action = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchActionMovies}`
-      );
-      const romance = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchRomanceMovies}`
-      );
-
-      await axios
-        .all([netflixOriginals, topRated, action, romance, trending])
-        .then(
-          axios.spread((...responses) => {
-            const resOne = responses[0].data.results;
-            const resTwo = responses[1].data.results;
-            const resThree = responses[2].data.results;
-            const resFour = responses[3].data.results;
-            const resFive = responses[4].data.results;
-
-            console.log(resOne, resTwo, resThree, resFour, resFive);
-            setNetflixOriginals(resOne);
-            console.log(netflixOriginals);
-            setTopRated(resTwo);
-            setAction(resThree);
-            setRomance(resFour);
-            setTrending(resFive);
-            console.log(
-              netflixOriginals.data.results,
-              topRated.data.results,
-              action.data.results,
-              trending.data.results,
-              romance.data.results
-            );
-          })
-        )
-        .catch((err) => console.log(err));
-      //   setData(request.data.results);
-      //   console.log(request.data.results);
-      if (searchQuery !== "") {
-        const fuse = new Fuse(topRated.data.results, options);
-        console.log(fuse);
-        const results = fuse.search(searchQuery);
-        console.log(results);
-        const searchResults = searchQuery
-          ? results.map((result) => result.item)
-          : topRated;
-        console.log(searchResults);
-        setNetflixOriginals(searchResults);
-        setTopRated(searchResults);
-        setAction(searchResults);
-        setRomance(searchResults);
-        setTrending(searchResults);
-      }
+    if (searchQuery !== "") {
+      const fuse = new Fuse(state, options);
+      console.log(fuse);
+      const results = fuse.search(searchQuery);
+      console.log(results);
+      const searchResults = searchQuery
+        ? results.map((result) => result.item)
+        : state;
+      console.log(searchResults);
+      setSearchResults(searchResults);
     }
-    fetchData();
   }, [searchQuery]);
 
   return (
     <div>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      <button
+        className="back-btn"
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <ArrowBackIcon />
+      </button>
+      <div className="search-body">
+        <SearchIcon className="search" />
+        <input
+          type="text"
+          value={searchQuery}
+          placeholder="Search for a movie,show,genre,etc."
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+      </div>
       {searchQuery === "" ? (
         <div>
-          <h1>Recommended</h1>
-          {topRated.map((movie) => {
-            return (
-              <>
-                <img
-                  key={movie.id}
-                  className="search-img"
-                  src={`${base_url}${movie.poster_path}`}
-                  alt={movie.name}
-                />
-              </>
-            );
-          })}
+          <h1 className="search-head">Top Searches</h1>
+          <div className="search-grid">
+            {state.map((movie) => {
+              return (
+                <>
+                  <img
+                    key={movie.id}
+                    className="search-img"
+                    src={`${base_url}${movie.poster_path}`}
+                    alt={movie.name}
+                  />
+                </>
+              );
+            })}
+          </div>
         </div>
       ) : (
-        <>
-          {netflixOriginals.map((movie) => {
+        <div className="search-grid">
+          <h1 className="search-head">Search Results :</h1>
+
+          {searchResults.map((movie) => {
             return (
               <>
                 <img
@@ -122,7 +88,7 @@ const Search = () => {
               </>
             );
           })}
-        </>
+        </div>
       )}
     </div>
   );

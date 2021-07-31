@@ -8,11 +8,6 @@
 .row > h2 {
   margin-bottom: 10px;
 }
-/* .row-posters {
-  display: flex;
-  padding: 20px;
-  overflow-x: scroll;
-} */
 .row-posters::-webkit-scrollbar {
   display: none;
 }
@@ -28,9 +23,6 @@
 }
 .row-poster:hover {
   transform: scale(1.08);
-}
-.row-poster-large {
-  max-height: 250px;
 }
 .row-poster-large:hover {
   transform: scale(1.09);

@@ -13,10 +13,11 @@ const Banner = () => {
       const req = await axios.get(requests.fetchTrending);
       const banner =
         req.data.results[Math.floor(Math.random() * req.data.results.length)];
-      console.log(banner);
+      console.log(req.data.results);
       setMovie(banner);
       return req;
     }
+    console.log(movie.backdrop_path);
     fetchMovie();
   }, []);
 

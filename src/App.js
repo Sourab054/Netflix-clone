@@ -8,6 +8,7 @@ import { login, logout, selectUser } from "./features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./routes/Profile/Profile";
 import Search from "./routes/Search/Search";
+import Details from "./routes/Details/Details";
 
 function App() {
   const user = useSelector(selectUser);
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/search">
             <Search />
+          </Route>
+          <Route exact path="/:id">
+            <Details />
           </Route>
         </Switch>
       )}
