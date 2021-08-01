@@ -12,7 +12,6 @@ const Home = () => {
   const [moviesTab, setMoviesTab] = useState(false);
   const [tvTab, setTvTab] = useState(false);
   const [list, setList] = useState(false);
-  const movies = useSelector(selectMovie);
 
   useEffect(() => {
     async function fetchData() {
@@ -54,8 +53,8 @@ const Home = () => {
     fetchData();
     setMoviesTab(true);
     setTvTab(false);
-    console.log(tvTab);
-  }, []);
+    // console.log(tvTab);
+  }, [dispatch]);
   // console.log(movies);
 
   return (
@@ -68,7 +67,7 @@ const Home = () => {
         list={list}
         setList={setList}
       />
-      <Banner />
+      <Banner isTv={true} tvTab={tvTab} />
       {tvTab && (
         <>
           <Row

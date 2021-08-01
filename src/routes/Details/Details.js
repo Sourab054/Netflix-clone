@@ -9,6 +9,7 @@ import StarIcon from "@material-ui/icons/Star";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Youtube from "react-youtube";
 import "./Details.css";
 
 const base_url = "https://image.tmdb.org/t/p/original";
@@ -17,6 +18,7 @@ const API_KEY = "03ec3fd413048c3fb576aaff2447f3dd";
 const Details = () => {
   const [details, setDetails] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [trailerUrl, setTrailerUrl] = useState("");
   const location = useLocation();
   const isTv = location.state?.isTv;
   const { id } = useParams();
@@ -39,8 +41,24 @@ const Details = () => {
       }/${id}/recommendations?api_key=${API_KEY}&language=en-US`
     );
     setRecommendations(request.data.results);
-    console.log(request.data.results);
+    // console.log(request.data.results);
     return request;
+  };
+
+  const handleClick = async (movie) => {
+    // console.log(movie);
+    if (trailerUrl) {
+      setTrailerUrl("");
+    } else {
+      let trailerurl = await axios.get(
+        `https://api.themoviedb.org/3/${isTv ? "tv" : "movie"}/${
+          movie.id
+        }/videos?api_key=${API_KEY}`
+      );
+      console.log(trailerurl);
+      setTrailerUrl(trailerurl.data.results[0]?.key);
+      // console.log(setTrailerUrl);
+    }
   };
 
   const settings = {
@@ -49,13 +67,47 @@ const Details = () => {
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const opts = {
+    height: "600",
+    width: "100%",
+    playerVars: {
+      autoplay: 1,
+    },
   };
 
   useEffect(() => {
-    console.log(isTv);
+    // console.log(isTv);
     fetchDetailsMovie();
     fetchRecommendations();
-    console.log(recommendations);
+    // console.log(details);
   }, [id]);
 
   function truncate(str, n) {
@@ -72,52 +124,48 @@ const Details = () => {
 
   const bg = details.backdrop_path;
   const bgc = `${base_url}${bg}`;
-  //   console.log(bgc);
-  // linear-gradient(
-  //   to right,
-  //   rgba(0, 0, 0, 0.8) 0,
-  //   rgba(0, 0, 0, 0) 30%,
-  // ),
-  // linear-gradient(
-  //   to top,
-  //   rgba(0, 0, 0, 0.8) 0,
-  //   rgba(0, 0, 0, 0.6) 20%,
-  //   rgba(0, 0, 0, 0) 30%
-  // ),
 
   return (
     <section className="details">
-      <header
-        className="details-body"
-        style={{
-          position: "relative",
-          backgroundImage: `linear-gradient(25deg, rgba(0,0,0,0.9),  rgba(0,0,0,0.1)),url('${bgc}')`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-        }}
-      >
-        <div className="details-desc">
-          <div className="details-head">
-            <h1>{details.name || details.title}</h1>
-            <p>{details.tagline}</p>
-            <div className="details-btn">
-              <button className="btn">
-                <div className="icon-btn">
-                  <FaPlay style={{ marginRight: "10px" }} />
-                  Trailer
-                </div>
-              </button>
-              <button className="btn">
-                <div className="icon-btn">
-                  <AiOutlinePlus size="18" style={{ marginRight: "10px" }} />
-                  My List
-                </div>
-              </button>
+      {trailerUrl ? (
+        <Youtube videoId={trailerUrl} opts={opts} />
+      ) : (
+        <header
+          className="details-body"
+          style={{
+            position: "relative",
+            backgroundImage: `linear-gradient(25deg, rgba(0,0,0,0.7),  rgba(0,0,0,0)),url('${bgc}')`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center center",
+          }}
+        >
+          <div className="details-desc">
+            <div className="details-head">
+              <h1>{details.name || details.title}</h1>
+              <p>{details.tagline}.</p>
+              <div className="details-btn">
+                <button className="btn">
+                  <div
+                    onClick={() => handleClick(details)}
+                    className="icon-btn"
+                  >
+                    <FaPlay style={{ marginRight: "10px" }} />
+                    Trailer
+                  </div>
+                </button>
+                <button className="btn">
+                  <div className="icon-btn">
+                    <AiOutlinePlus size="18" style={{ marginRight: "10px" }} />
+                    My List
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
+
       <div className="details-flex">
         <div className="details-left">
           <div className="details-left-inner">
@@ -166,7 +214,10 @@ const Details = () => {
         <Slider {...settings} className="slider">
           {recommendations.map((movie) => {
             return (
-              <Link to={{ pathname: `/${movie.id}`, state: { isTv } }}>
+              <Link
+                key={movie.id}
+                to={{ pathname: `/${movie.id}`, state: { isTv } }}
+              >
                 <img
                   key={movie.id}
                   // onClick={() => handleClick(movie)}

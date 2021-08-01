@@ -5,21 +5,32 @@ import "./Banner.css";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const Banner = () => {
+const Banner = ({ isTv, tvTab }) => {
   const [movie, setMovie] = useState([]);
+  const [tv, setTv] = useState([]);
+
+  const fetchMovie = async () => {
+    const req = await axios.get(requests.fetchTrending);
+    const banner =
+      req.data.results[Math.floor(Math.random() * req.data.results.length)];
+    // console.log(req.data.results);
+    setMovie(banner);
+    return req;
+  };
+
+  const fetchTv = async () => {
+    const req = await axios.get(requests.fetchNetflixOriginals);
+    const banner =
+      req.data.results[Math.floor(Math.random() * req.data.results.length)];
+    // console.log(req.data.results);
+    setTv(banner);
+    return req;
+  };
 
   useEffect(() => {
-    async function fetchMovie() {
-      const req = await axios.get(requests.fetchTrending);
-      const banner =
-        req.data.results[Math.floor(Math.random() * req.data.results.length)];
-      console.log(req.data.results);
-      setMovie(banner);
-      return req;
-    }
-    console.log(movie.backdrop_path);
-    fetchMovie();
-  }, []);
+    console.log(tvTab);
+    tvTab ? fetchTv() : fetchMovie();
+  }, [tvTab]);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -28,14 +39,18 @@ const Banner = () => {
     <header
       className="banner"
       style={{
-        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/original/${
+          tvTab ? tv?.backdrop_path : movie?.backdrop_path
+        }")`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
       }}
     >
       <div className="banner-content">
-        <h1 className="banner-title">{movie?.title || movie?.name}</h1>
+        <h1 className="banner-title">
+          {tvTab ? tv?.title || tv?.name : movie?.title || movie?.name}
+        </h1>
         <div className="banner-btn">
           <button className="btn">
             <div className="icon-btn">
@@ -45,12 +60,14 @@ const Banner = () => {
           </button>
           <button className="btn">
             <div className="icon-btn">
-              <AiOutlinePlus size="18" style={{ marginRight: "10px" }} />
+              <AiOutlinePlus style={{ marginRight: "10px" }} />
               My List
             </div>
           </button>
         </div>
-        <h1 className="banner-desc">{truncate(movie?.overview, 250)}</h1>
+        <h1 className="banner-desc">
+          {truncate(tvTab ? tv?.overview : movie?.overview, 250)}
+        </h1>
       </div>
       <div className="overlay"></div>
     </header>

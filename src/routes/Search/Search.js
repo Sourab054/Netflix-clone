@@ -22,13 +22,13 @@ const Search = () => {
   useEffect(() => {
     if (searchQuery !== "") {
       const fuse = new Fuse(state, options);
-      console.log(fuse);
+      // console.log(fuse);
       const results = fuse.search(searchQuery);
-      console.log(results);
+      // console.log(results);
       const searchResults = searchQuery
         ? results.map((result) => result.item)
         : state;
-      console.log(searchResults);
+      // console.log(searchResults);
       setSearchResults(searchResults);
     }
   }, [searchQuery]);
@@ -54,7 +54,7 @@ const Search = () => {
         />
       </div>
       {searchQuery === "" ? (
-        <div>
+        <>
           <h1 className="search-head">Top Searches</h1>
           <div className="search-grid">
             {state.map((movie) => {
@@ -70,25 +70,26 @@ const Search = () => {
               );
             })}
           </div>
-        </div>
+        </>
       ) : (
-        <div className="search-grid">
+        <>
           <h1 className="search-head">Search Results :</h1>
-
-          {searchResults.map((movie) => {
-            return (
-              <>
-                <img
-                  key={movie.id}
-                  className="search-img"
-                  src={`${base_url}${movie.poster_path}`}
-                  alt={movie.name}
-                />
-                {/* console.log({`${base_url}${movie.poster_path}`}); */}
-              </>
-            );
-          })}
-        </div>
+          <div className="search-grid">
+            {searchResults.map((movie) => {
+              return (
+                <>
+                  <img
+                    key={movie.id}
+                    className="search-img"
+                    src={`${base_url}${movie.poster_path}`}
+                    alt={movie.name}
+                  />
+                  {/* console.log({`${base_url}${movie.poster_path}`}); */}
+                </>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );

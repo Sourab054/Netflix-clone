@@ -64,3 +64,60 @@
   height: 11.9rem;
   background-image: linear-gradient(180deg, transparent, #161616);
 }
+
+@media screen and (max-width: 600px) {
+  .banner-content {
+    padding-top: 60%;
+  }
+  .banner-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.5px;
+    max-width: 60%;
+  }
+  .banner-desc {
+    max-width: 60%;
+    /* padding-top: 1rem; */
+    font-size: 0.85rem;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .overlay {
+    height: 12.5rem;
+  }
+  .banner-content {
+    padding-top: 65%;
+  }
+  .banner-title {
+    font-size: 2rem;
+  }
+  .banner-desc {
+    max-width: 60%;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .banner-content {
+    padding-top: 100%;
+  }
+  .overlay {
+    height: 8.5rem;
+  }
+  .banner-title {
+    font-size: 1.5rem;
+  }
+  .banner-desc {
+    max-width: 80%;
+    font-size: 0.65rem;
+    font-weight: 500;
+  }
+  .btn {
+    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 10px;
+    padding: 0.7rem 1.2rem;
+  }
+}
