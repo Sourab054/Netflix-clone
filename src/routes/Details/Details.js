@@ -30,7 +30,6 @@ const Details = () => {
       }/${id}?api_key=${API_KEY}&language=en-US`
     );
     setDetails(request.data);
-    // console.log(request.data);
     return request;
   };
 
@@ -41,12 +40,10 @@ const Details = () => {
       }/${id}/recommendations?api_key=${API_KEY}&language=en-US`
     );
     setRecommendations(request.data.results);
-    // console.log(request.data.results);
     return request;
   };
 
   const handleClick = async (movie) => {
-    // console.log(movie);
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
@@ -107,7 +104,6 @@ const Details = () => {
     // console.log(isTv);
     fetchDetailsMovie();
     fetchRecommendations();
-    // console.log(details);
   }, [id]);
 
   function truncate(str, n) {
@@ -134,7 +130,7 @@ const Details = () => {
           className="details-body"
           style={{
             position: "relative",
-            backgroundImage: `linear-gradient(25deg, rgba(0,0,0,0.7),  rgba(0,0,0,0)),url('${bgc}')`,
+            backgroundImage: `linear-gradient(25deg, rgba(0,0,0,0.8),  rgba(0,0,0,0)),url('${bgc}')`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center center",
@@ -169,6 +165,9 @@ const Details = () => {
       <div className="details-flex">
         <div className="details-left">
           <div className="details-left-inner">
+            <h3 style={{ color: "#46d369", marginRight: "1rem" }}>
+              {Math.floor(Math.random() * 41) + 60}% Match
+            </h3>
             <h3>
               {details.first_air_date?.slice(0, 4) ||
                 details.release_date?.slice(0, 4)}

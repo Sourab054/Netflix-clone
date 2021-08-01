@@ -90,24 +90,18 @@ const Row = ({ title, isTv, movie, fetchUrl }) => {
               key={movie.id}
               to={{ pathname: `/${movie.id}`, state: { isTv } }}
             >
-              <div key={movie.id}>
+              <div className="img-div" key={movie.id}>
                 <img
                   key={movie.id}
-                  // onClick={() => handleClick(movie)}
                   className="row-poster"
                   src={`${base_url}${movie.poster_path}`}
                   alt={movie.name}
                 />
-                {/* <div>
-                <ThumbUpIcon/>
-                <ThumbDownIcon/>
-              </div> */}
               </div>
             </Link>
           );
         })}
       </Slider>
-      {/* {trailerUrl && <Youtube videoId={trailerUrl} opts={opts} />} */}
     </div>
   );
 };

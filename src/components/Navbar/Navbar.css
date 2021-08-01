@@ -61,3 +61,18 @@
   font-size: 1rem;
   font-weight: 600;
 }
+
+@media screen and (max-width: 480px) {
+  .search-icon {
+    right: 90px;
+  }
+  .MuiSvgIcon-root {
+    font-size: 1.5rem !important;
+  }
+  .nav-list {
+    margin-left: 7rem;
+  }
+  .nav-list > a {
+    font-size: 12px;
+  }
+}

@@ -24,6 +24,3 @@
 .row-poster:hover {
   transform: scale(1.08);
 }
-.row-poster-large:hover {
-  transform: scale(1.09);
-}

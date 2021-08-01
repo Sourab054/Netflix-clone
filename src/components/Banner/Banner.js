@@ -65,9 +65,9 @@ const Banner = ({ isTv, tvTab }) => {
             </div>
           </button>
         </div>
-        <h1 className="banner-desc">
+        <p className="banner-desc">
           {truncate(tvTab ? tv?.overview : movie?.overview, 250)}
-        </h1>
+        </p>
       </div>
       <div className="overlay"></div>
     </header>
