@@ -1,17 +1,19 @@
 .nav {
   position: fixed;
+  display: flex;
+  align-items: center;
   padding: 0 2.5%;
   top: 0;
   height: 55px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
   z-index: 1;
   transition: all 0.3s ease-in;
 }
+.menu-btn {
+  display: none;
+}
 .nav-logo {
-  position: fixed;
-  left: 10px;
+  margin-left: 5px;
   width: 100px;
   object-fit: contain;
 }
@@ -43,7 +45,7 @@
 .nav-list {
   display: flex;
   align-items: center;
-  margin-left: 6rem;
+  margin-left: 2%;
 }
 .nav-link {
   text-decoration: none;
@@ -63,16 +65,70 @@
 }
 
 @media screen and (max-width: 480px) {
+  .menu-btn {
+    display: block;
+    color: #e5e5e5;
+  }
+  .sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.97);
+    z-index: 999;
+  }
+  .sidebar-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    color: white;
+    padding: 1.5rem;
+  }
+  .sidebar-list > li {
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+  .sidebar-list > li:hover {
+    background-color: #e50914;
+    font-size: 1.2rem;
+  }
+  .sidebar-logo {
+    position: fixed;
+    width: 100px;
+    height: 60px;
+    top: 0.3rem;
+    left: 1rem;
+  }
+  .close-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+  }
+  .logo-list {
+    margin-bottom: 5rem;
+  }
+  .nav-logo {
+    position: fixed;
+    left: 25px;
+    width: 100px;
+    object-fit: contain;
+  }
   .search-icon {
-    right: 90px;
+    top: 15px;
+  }
+  .nav-avatar {
+    width: 30px;
+    top: 13px;
   }
   .MuiSvgIcon-root {
     font-size: 1.5rem !important;
   }
   .nav-list {
-    margin-left: 7rem;
-  }
-  .nav-list > a {
-    font-size: 12px;
+    display: none;
   }
 }

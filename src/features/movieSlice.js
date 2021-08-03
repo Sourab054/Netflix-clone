@@ -7,7 +7,12 @@ const movieSlice = createSlice({
   },
   reducers: {
     getMovies: (state, action) => {
-      state.movies = [...state.movies, ...action.payload];
+      let arr = [...state.movies, ...action.payload];
+      state.movies = arr.filter(
+        (ele, ind) =>
+          ind ===
+          arr.findIndex((elem) => elem.id === ele.id && elem.id === ele.id)
+      );
       //   state.movies.concat(action.payload);
     },
   },

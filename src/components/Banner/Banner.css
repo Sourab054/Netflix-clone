@@ -82,7 +82,7 @@
   }
 }
 
-@media screen and (max-width: 472px) {
+@media screen and (max-width: 480px) {
   .overlay {
     height: 12.5rem;
   }
@@ -95,16 +95,13 @@
   .banner-desc {
     max-width: 60%;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 400;
   }
 }
 
 @media screen and (max-width: 376px) {
   .banner-content {
-    padding-top: 100%;
-  }
-  .overlay {
-    height: 8.5rem;
+    padding-top: 95%;
   }
   .banner-title {
     font-size: 1.5rem;
@@ -112,7 +109,7 @@
   .banner-desc {
     max-width: 80%;
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: 400;
   }
   .btn {
     margin-right: 1rem;

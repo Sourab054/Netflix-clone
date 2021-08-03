@@ -68,18 +68,23 @@ const Details = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: 4,
           slidesToScroll: 2,
           infinite: true,
-          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
       },
       {
@@ -89,11 +94,18 @@ const Details = () => {
           slidesToScroll: 1,
         },
       },
+      {
+        breakpoint: 380,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
     ],
   };
 
   const opts = {
-    height: "600",
+    height: "500",
     width: "100%",
     playerVars: {
       autoplay: 1,
@@ -152,7 +164,7 @@ const Details = () => {
                 </button>
                 <button className="btn">
                   <div className="icon-btn">
-                    <AiOutlinePlus size="18" style={{ marginRight: "10px" }} />
+                    <AiOutlinePlus style={{ marginRight: "10px" }} />
                     My List
                   </div>
                 </button>
@@ -165,7 +177,7 @@ const Details = () => {
       <div className="details-flex">
         <div className="details-left">
           <div className="details-left-inner">
-            <h3 style={{ color: "#46d369", marginRight: "1rem" }}>
+            <h3 style={{ color: "#46d369" }}>
               {Math.floor(Math.random() * 41) + 60}% Match
             </h3>
             <h3>
@@ -190,7 +202,7 @@ const Details = () => {
           >
             Overview:
           </p>
-          <p>{truncate(details.overview, 300)}</p>
+          <p>{truncate(details.overview, 250)}</p>
         </div>
         <div className="details-right">
           <p>

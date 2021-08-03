@@ -8,54 +8,15 @@ import { getMovies, selectMovie } from "../../features/movieSlice";
 import requests from "../../requests";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const [moviesTab, setMoviesTab] = useState(false);
   const [tvTab, setTvTab] = useState(false);
   const [list, setList] = useState(false);
 
+  // console.log(movies);
   useEffect(() => {
-    async function fetchData() {
-      const netflixOriginals = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchNetflixOriginals}`
-      );
-      const trending = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchTrending}`
-      );
-      const topRated = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchTopRated}`
-      );
-      const action = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchActionMovies}`
-      );
-      const romance = await axios.get(
-        `https://api.themoviedb.org/3${requests.fetchRomanceMovies}`
-      );
-
-      await axios
-        .all([netflixOriginals, topRated, action, romance, trending])
-        .then(
-          axios.spread((...responses) => {
-            const resOne = responses[0].data.results;
-            const resTwo = responses[1].data.results;
-            const resThree = responses[2].data.results;
-            const resFour = responses[3].data.results;
-            const resFive = responses[4].data.results;
-            // console.log(resOne, resTwo, resThree, resFour, resFive);
-            dispatch(getMovies(resOne));
-            dispatch(getMovies(resTwo));
-            dispatch(getMovies(resThree));
-            dispatch(getMovies(resFour));
-            dispatch(getMovies(resFive));
-          })
-        )
-        .catch((err) => console.log(err));
-    }
-    fetchData();
     setMoviesTab(true);
     setTvTab(false);
-    // console.log(tvTab);
-  }, [dispatch]);
-  // console.log(movies);
+  }, []);
 
   return (
     <div className="home">
@@ -71,9 +32,9 @@ const Home = () => {
       {tvTab && (
         <>
           <Row
-            title="Netflix Originals"
+            title="Popular on Netflix"
             isTv={true}
-            fetchUrl={requests.fetchNetflixOriginals}
+            fetchUrl={requests.fetchPopularTV}
           />
           <Row
             title="Action & Adventure"
@@ -96,6 +57,11 @@ const Home = () => {
       )}
       {moviesTab && (
         <>
+          <Row
+            title="Popular on Netflix"
+            movie="movie"
+            fetchUrl={requests.fetchPopularMovies}
+          />
           <Row
             title="Trending"
             movie="movie"

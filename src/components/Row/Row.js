@@ -23,7 +23,7 @@ const Row = ({ title, isTv, movie, fetchUrl }) => {
     }
     fetchData();
   }, []);
-
+  // console.log(movies);
   const settings = {
     dots: false,
     infinite: true,
@@ -94,7 +94,11 @@ const Row = ({ title, isTv, movie, fetchUrl }) => {
                 <img
                   key={movie.id}
                   className="row-poster"
-                  src={`${base_url}${movie.poster_path}`}
+                  src={
+                    movie?.poster_path
+                      ? `${base_url}${movie?.poster_path}`
+                      : null
+                  }
                   alt={movie.name}
                 />
               </div>

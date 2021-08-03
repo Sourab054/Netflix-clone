@@ -5,7 +5,7 @@ import "./Banner.css";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const Banner = ({ isTv, tvTab }) => {
+const Banner = ({ tvTab }) => {
   const [movie, setMovie] = useState([]);
   const [tv, setTv] = useState([]);
 
@@ -19,10 +19,10 @@ const Banner = ({ isTv, tvTab }) => {
   };
 
   const fetchTv = async () => {
-    const req = await axios.get(requests.fetchNetflixOriginals);
+    const req = await axios.get(requests.fetchPopularTV);
     const banner =
       req.data.results[Math.floor(Math.random() * req.data.results.length)];
-    // console.log(req.data.results);
+    console.log(req.data.results);
     setTv(banner);
     return req;
   };
@@ -39,7 +39,7 @@ const Banner = ({ isTv, tvTab }) => {
     <header
       className="banner"
       style={{
-        backgroundImage: `url("https://image.tmdb.org/t/p/original/${
+        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.99),  rgba(0,0,0,0)),linear-gradient(to bottom, rgba(0,0,0,0),  rgba(0,0,0,0.9)),url("https://image.tmdb.org/t/p/original/${
           tvTab ? tv?.backdrop_path : movie?.backdrop_path
         }")`,
         backgroundSize: "cover",
@@ -66,10 +66,10 @@ const Banner = ({ isTv, tvTab }) => {
           </button>
         </div>
         <p className="banner-desc">
-          {truncate(tvTab ? tv?.overview : movie?.overview, 250)}
+          {truncate(tvTab ? tv?.overview : movie?.overview, 220)}
         </p>
       </div>
-      <div className="overlay"></div>
+      {/* <div className="overlay"></div> */}
     </header>
   );
 };

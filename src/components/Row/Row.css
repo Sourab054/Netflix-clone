@@ -24,3 +24,13 @@
 .row-poster:hover {
   transform: scale(1.08);
 }
+
+@media screen and (max-width: 480px) {
+  .row {
+    padding: 0 4%;
+  }
+  .row-poster {
+    max-height: 225px;
+    margin-right: 10px;
+  }
+}

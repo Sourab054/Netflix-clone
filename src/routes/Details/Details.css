@@ -55,6 +55,10 @@
   align-items: center;
   margin-top: 0.5rem;
 }
+.details-left-inner > h3:first-child {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
 .details-left-inner > h3 {
   font-size: 1rem;
 }
@@ -86,4 +90,66 @@
 }
 .recommendations > h2 {
   margin-bottom: 1rem;
+}
+@media screen and (max-width: 425px) {
+  .details-body {
+    height: 480px;
+  }
+  .details-head {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+  .details-head > h1 {
+    font-size: 2rem;
+    max-width: 280px;
+  }
+  .details-flex {
+    flex-direction: column;
+    padding: 0 1.5rem;
+  }
+  .details-right {
+    padding-top: 0rem;
+  }
+  .details-left > p:last-child {
+    font-size: 16px;
+    line-height: 1.1rem;
+    max-width: 100%;
+  }
+  .details-left-inner > h3:first-child {
+    margin-right: 12px;
+  }
+  .recommendations {
+    padding: 0 1.5rem;
+  }
+}
+@media screen and (min-width: 425px) and (max-width: 800px) {
+  .details-body {
+    height: 500px;
+  }
+  .details-head {
+    bottom: 2.5rem;
+    left: 2.5rem;
+  }
+  .details-head > h1 {
+    font-size: 2rem;
+    max-width: 480px;
+  }
+  .details-flex {
+    flex-direction: column;
+    padding: 0 2.5rem;
+  }
+  .details-left > p:last-child {
+    font-size: 16px;
+    line-height: 1.1rem;
+    max-width: 100%;
+  }
+  .details-right {
+    padding-top: 0rem;
+  }
+  .details-right > p {
+    overflow-x: auto;
+  }
+  .recommendations {
+    padding: 0 3rem;
+  }
 }
