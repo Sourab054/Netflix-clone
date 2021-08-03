@@ -1,5 +1,5 @@
 .details {
-  background-color: #181818;
+  /* background-color: #181818; */
   color: white;
 }
 .details-body {
@@ -90,6 +90,9 @@
 }
 .recommendations > h2 {
   margin-bottom: 1rem;
+}
+.details-right > p > .MuiSvgIcon-root {
+  font-size: 18px !important;
 }
 @media screen and (max-width: 425px) {
   .details-body {

@@ -87,15 +87,21 @@
     height: 12.5rem;
   }
   .banner-content {
-    padding-top: 65%;
+    padding-top: 72%;
   }
   .banner-title {
     font-size: 2rem;
   }
   .banner-desc {
-    max-width: 60%;
+    max-width: 70%;
     font-size: 0.85rem;
     font-weight: 400;
+  }
+  .btn {
+    margin-right: 1rem;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0.7rem 1.2rem;
   }
 }
 
@@ -108,7 +114,7 @@
   }
   .banner-desc {
     max-width: 80%;
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     font-weight: 400;
   }
   .btn {

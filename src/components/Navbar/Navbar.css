@@ -55,6 +55,7 @@
   font-size: 0.85rem;
   transition: all 80ms ease-in-out;
 }
+
 .nav-link:hover {
   color: #cfcccc;
 }
@@ -93,7 +94,7 @@
     font-size: 1.1rem;
     padding: 1rem;
   }
-  .sidebar-list > li:hover {
+  .sidebar-list > li:nth-child(n + 2):hover {
     background-color: #e50914;
     font-size: 1.2rem;
   }

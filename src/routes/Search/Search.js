@@ -105,7 +105,7 @@ const Search = () => {
             {state.slice(1, 13).map((movie, index) => {
               return (
                 movie.poster_path !== null && (
-                  <div key={index}>
+                  <>
                     <img
                       key={index}
                       className="search-img"
@@ -113,7 +113,7 @@ const Search = () => {
                       alt={movie.name}
                     />
                     {/* console.log({`${base_url}${movie.poster_path}`}); */}
-                  </div>
+                  </>
                 )
               );
             })}

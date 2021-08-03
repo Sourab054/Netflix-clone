@@ -19,7 +19,7 @@ const Banner = ({ tvTab }) => {
   };
 
   const fetchTv = async () => {
-    const req = await axios.get(requests.fetchPopularTV);
+    const req = await axios.get(requests.fetchTVMystery);
     const banner =
       req.data.results[Math.floor(Math.random() * req.data.results.length)];
     console.log(req.data.results);

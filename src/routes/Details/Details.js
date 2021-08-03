@@ -216,7 +216,7 @@ const Details = () => {
           <p>
             <span style={{ marginRight: "5px" }}>Rating: </span>{" "}
             {details.vote_average}{" "}
-            <StarIcon style={{ fontSize: "18", color: "yellow" }} />
+            <StarIcon className="rating" style={{ color: "yellow" }} />
           </p>
         </div>
       </div>
