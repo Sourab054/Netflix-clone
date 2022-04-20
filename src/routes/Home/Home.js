@@ -34,7 +34,7 @@ const Home = () => {
           <Row
             title="Popular on Netflix"
             isTv={true}
-            fetchUrl={requests.fetchPopularTV}
+            fetchUrl={requests.fetchTVCrime}
           />
           <Row
             title="Action & Adventure"

@@ -22,7 +22,7 @@ const Banner = ({ tvTab }) => {
     const req = await axios.get(requests.fetchTVMystery);
     const banner =
       req.data.results[Math.floor(Math.random() * req.data.results.length)];
-    console.log(req.data.results);
+    // console.log(req.data.results);
     setTv(banner);
     return req;
   };
